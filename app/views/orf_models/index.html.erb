@@ -1,0 +1,37 @@
+<h1>Orf Models</h1>
+
+<!-- Search Box -->
+
+<div class="search_form">
+      <%= form_tag '/orf_models', :method => :get do  %>
+        <fieldset>
+          <div id="search_form_box">
+	    <form class="form-search" action="/orf_models" method="get">
+	    <input class="input-medium search-query" name="q" placeholder="Search" type="text">
+ 	    <!-- <input class="btn" value="search" type="submit"> -->
+          </div>
+        </fieldset>
+      <% end %>
+</div>
+
+
+
+<table class="table table-striped">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+<% @orf_models.each do |orf_model| %>
+  <tr>
+    <td><%= link_to 'Show', orf_model, :class => 'btn btn-mini btn-info' %></td>
+    <td><%= orf_model.name %></td>
+    <td><%= orf_model.description %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<p><%= will_paginate @orf_models %></p>

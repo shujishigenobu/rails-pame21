@@ -1,0 +1,33 @@
+<%= form_for(@orf_model) do |f| %>
+  <% if @orf_model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@orf_model.errors.count, "error") %> prohibited this orf_model from being saved:</h2>
+
+      <ul>
+      <% @orf_model.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :desc %><br />
+    <%= f.text_field :desc %>
+  </div>
+  <div class="field">
+    <%= f.label :naseq %><br />
+    <%= f.text_area :naseq %>
+  </div>
+  <div class="field">
+    <%= f.label :aaseq %><br />
+    <%= f.text_area :aaseq %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,185 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @orf_model.name %></h1>
+<% contig, loc = @orf_model.description.split[-1].split(/:/) %>
+<% model_type = @orf_model.description.split[5].split(/:/)[1] %>
+
+<b>ORF Prediction</b>
+<table class='table'>
+<tr>
+  <th>transcript</th><td><%= link_to(contig, :action => "parent_transcript") %> : <%= loc %></td>
+  <th>length</th><td><%= @orf_model.naseq.size %> bp</td><td><%= @orf_model.aaseq.size %> aa</td><th>model type</th><td><%= model_type %></td>
+</tr>
+</table>
+
+
+<p>
+  <b>Sequence:</b>
+ <%= link_to("CDS", :controller => "orf_models", :action => "fasta_cds") %> | <%= link_to("Protein", :controller => "orf_models", :action => "fasta_pep") %> (FASTA format)
+
+</p>
+
+<p>
+<b>Expression Level</b>
+<% ex = @orf_model.expression_level %>
+<% libinfo = [["idx7", "eggs and embryos", "EE"], 
+["idx8",  "young larvae", "YL"],
+["idx9",  "old larvae female", "OLF"],
+["idx10", "old larvae male", "OLM"],
+["idx11", "adult female", "AF"],
+["idx12", "adult male", "AM"]] %>
+
+<% libs = libinfo.map{|l| l[0]} %>
+<% exdata = libs.map{|l| ex.send(l)} %>
+</p>
+
+<p>
+
+<%= image_tag Gchart.bar(
+	:data => exdata,
+	:axis_with_labels => 'x', 
+	:axis_labels => [libinfo.map{|x| x[2]}.join('|')],
+	:theme => :pastel,
+	:title => "cpm"
+)
+ %>
+<%= image_tag Gchart.bar(
+	:data => exdata.map{|x| Math.log2(x+1)},
+	:axis_with_labels => 'x', 
+	:axis_labels => [libinfo.map{|x| x[2]}.join('|')],
+	:title => "log cpm"
+)
+ %>
+
+</p>
+
+<table class='table table-bordered'>
+
+<tr>
+<% libs.each_with_index do |lib, i| %>
+  <th><%= lib %></th>
+<% end %>
+</tr>
+
+<tr>
+<% libs.each_with_index do |lib, i| %>
+  <td><%= "#{libinfo[i][2]} (#{libinfo[i][1]})" %></td>
+<% end %>
+</tr>
+
+
+<tr>
+<% libs.each do |lib| %>
+  <td><%= sprintf("%.2f", ex.send(lib)) %></td>
+<% end %>
+</tr>
+
+</table>
+
+
+
+<p>
+<b>BLAST NR Top Hit</b>
+<% bl = @orf_model.blast_nr_top_hit %>
+<% if bl %>
+<table class="table table-condensed table-striped">
+<% keys = [:name, :description, :len_align, :evalue, :bitscore, :species, :common_name] %>
+<tr>
+<% keys.each do |k| %>
+  <th><%= k.to_s %></th>
+<% end %>
+</tr>
+<tr>
+<% keys.each do |k| %>
+  <% if k == :name %>
+  <td><%= link_to(bl.name, url_ncbi_protein(bl.name)) %></td>
+  <% elsif k == :species %>
+  <td><%= link_to(bl.species, url_ncbi_taxonomy(bl.taxid)) %></td>
+
+  <% else %>
+  <td><%= h bl.send(k) %></td>
+  <% end %>
+<% end %>
+</tr>
+</table>
+<% else %>
+<br />
+No hit
+<% end %>
+</p>
+<p>
+<%= link_to("View BLASTP reults more ...", :controller => "orf_models", :action => "blast_nr") %>
+</p>
+
+<p>
+<b>Pfam Motif</b>
+<% motifs = @orf_model.interpro_motifs %>
+<br />
+<%= motifs.size %> motifs found
+<table class='table table-condensed table-striped'>
+<% motifs.each do |m| %>
+<tr>
+  <td><%= link_to(m.signature_acc, url_pfam(m.signature_acc)) %></td>
+  <td><%= m.signature_desc %></td>
+  <td><%= m.start %></td>
+  <td><%= m.stop %></td>
+  <td><%= m.score %></td>
+  <td><%= m.interpro_acc %></td>
+  <% if /^IP/.match(m.interpro_acc) %>
+    <td><%= link_to(m.interpro_acc, url_interpro(m.interpro_acc)) %></td> 
+  <% else %>
+    <td></td>
+  <% end %>
+  <td><%= m.interpro_desc %></td>
+  <td>  
+  <% (m.interpro_go || "").split(/\|/).each do |g| %> 
+  <%= link_to(g, url_goterm(g)) %> 
+  <% end %>
+  </td>
+</tr>
+<% end %>
+</table>
+</p>
+
+<p>
+<b>OrthoDB5 Group</b>
+<% og = @orf_model.orthodb5_hit %>
+<% if og %>
+<table class="table">
+<tr>
+  <td><%= link_to(og.orthgrp, url_orthodb5(og.orthgrp)) %></td>
+  <td><%= og.besthit %></td>
+</tr>
+</table>
+<% else %>
+none
+<% end %>
+</p>
+
+<p>
+<b>BLAST <%= "Hayashi's 454 ESTs of 3 Termites" %></b>
+<br />
+<%=  @orf_model.blast_termite454_results.size %> hits found. <br />
+<%=  @orf_model.blast_termite454_results.map{|x| x.s_seqid}.join(", ") %>
+</p>
+<p>
+<%= link_to("View BLASTP reults more ...", :controller => "orf_models", :action => "blast_termite454") %>
+</p>
+
+
+<%= link_to 'Back', orf_models_path %>
+<p>
+
+<!--
+<a href="#" rel="tooltip" data-original-title="test">test</a>
+<a  rel="popover" data-original-title="test" data-content="information ...">test</a>
+-->
+
+</p>
+
+<script>
+	$(function(){
+		$('a[rel=tooltip]').tooltip();
+		$('a[rel=popover]').popover();
+	});
+</script>

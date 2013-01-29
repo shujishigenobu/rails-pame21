@@ -1,0 +1,23 @@
+<% cols = %w{subject_id pident alen query_range subject_range evalue bitscore description species common_name } %>
+
+<table class="table">
+<tr>
+  <th><%=raw cols.join("</th><th>") %></th>
+</tr>
+
+<% @blast_lines.each_with_index do |bl| %>
+<tr>
+  <td><%= bl.s_seqid %></td>
+  <td><%= sprintf("%.1f", bl.pident) %>%</td>
+  <td><%= bl.alen %></td>
+  <td><%= "#{bl.q_start} => #{bl.q_end} / #{bl.q_len}" %></td>
+  <td><%= "#{bl.s_start} => #{bl.s_end} / #{bl.s_len}" %></td>
+  <td><%= bl.evalue %></td>
+  <td><%= bl.bitscore %></td>
+  <td><%= bl.description %></td>
+  <td><i><%= bl.species %></i></td>
+  <td><%= bl.common_name %></td>
+</tr>
+<% end %>
+
+</table>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  idx10: 1.5
+  idx11: 1.5
+  idx12: 1.5
+  idx7: 1.5
+  idx8: 1.5
+  idx9: 1.5
+
+two:
+  name: MyString
+  idx10: 1.5
+  idx11: 1.5
+  idx12: 1.5
+  idx7: 1.5
+  idx8: 1.5
+  idx9: 1.5

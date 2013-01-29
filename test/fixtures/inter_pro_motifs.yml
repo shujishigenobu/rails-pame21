@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  md5: MyString
+  length: 1
+  analysis: MyString
+  signature_acc: MyString
+  signature_desc: MyString
+  start: 1
+  stop: 1
+  score: 1.5
+  status: MyString
+  date: 2013-01-25
+  interpro_acc: MyString
+  interpro_desc: MyString
+  ingerpro_go: MyText
+  orf_model_id: 1
+
+two:
+  name: MyString
+  md5: MyString
+  length: 1
+  analysis: MyString
+  signature_acc: MyString
+  signature_desc: MyString
+  start: 1
+  stop: 1
+  score: 1.5
+  status: MyString
+  date: 2013-01-25
+  interpro_acc: MyString
+  interpro_desc: MyString
+  ingerpro_go: MyText
+  orf_model_id: 1

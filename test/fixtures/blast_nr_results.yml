@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  qseqid: MyString
+  sseqid: MyString
+  pident: MyString
+  length: MyString
+  mismatch: MyString
+  gapopen: MyString
+  qstart: MyString
+  qend: MyString
+  sstart: MyString
+  send: MyString
+  evalue: MyString
+  bitscore: MyString
+  qlen: MyString
+  slen: MyString
+
+two:
+  qseqid: MyString
+  sseqid: MyString
+  pident: MyString
+  length: MyString
+  mismatch: MyString
+  gapopen: MyString
+  qstart: MyString
+  qend: MyString
+  sstart: MyString
+  send: MyString
+  evalue: MyString
+  bitscore: MyString
+  qlen: MyString
+  slen: MyString

@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  query: MyString
+  name: MyString
+  len_align: 1
+  evalue: 1.5
+  bitscore: 1.5
+  description: MyText
+  taxid: 1
+  species: MyString
+  common_name: MyString
+  taxonomy: MyText
+  order: MyString
+  phylum: MyString
+  kingdom: MyString
+  orf_model_id: 1
+
+two:
+  query: MyString
+  name: MyString
+  len_align: 1
+  evalue: 1.5
+  bitscore: 1.5
+  description: MyText
+  taxid: 1
+  species: MyString
+  common_name: MyString
+  taxonomy: MyText
+  order: MyString
+  phylum: MyString
+  kingdom: MyString
+  orf_model_id: 1

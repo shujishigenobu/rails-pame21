@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @protein.name %>
+</p>
+
+<p>
+  <b>Desc:</b>
+  <%= @protein.desc %>
+</p>
+
+<p>
+  <b>Seq:</b>
+  <%= @protein.seq %>
+</p>
+
+
+<%= link_to 'Edit', edit_protein_path(@protein) %> |
+<%= link_to 'Back', proteins_path %>
